@@ -15,16 +15,16 @@ const config: Config = {
       },
       keyframes: {
         progress: {
-          '0%': { width: '0%' },
-          '100%': { width: '100%' },
+          "0%": { width: "0%" },
+          "100%": { width: "100%" },
         },
         fade: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
       },
       animation: {
-        progress: 'progress linear'
+        progress: "progress linear",
       },
     },
   },

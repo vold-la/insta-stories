@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
-import CloseIcon from '../Icons/close';
+import CloseIcon from "../Icons/close";
 
 interface Story {
   id: number;
@@ -15,7 +15,12 @@ interface StoryViewerProps {
   onStoryChange: (index: number) => void;
 }
 
-const StoryViewer: React.FC<StoryViewerProps> = ({ stories, initialIndex, onClose, onStoryChange }) => {
+const StoryViewer: React.FC<StoryViewerProps> = ({
+  stories,
+  initialIndex,
+  onClose,
+  onStoryChange,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const fallbackDuration = 5000;
 
@@ -24,7 +29,10 @@ const StoryViewer: React.FC<StoryViewerProps> = ({ stories, initialIndex, onClos
   }, [stories.length]);
 
   useEffect(() => {
-    const timer = setInterval(updateIndex, stories[currentIndex]?.duration || fallbackDuration);
+    const timer = setInterval(
+      updateIndex,
+      stories[currentIndex]?.duration || fallbackDuration,
+    );
     return () => clearInterval(timer);
   }, [currentIndex, stories, updateIndex]);
 
@@ -36,12 +44,14 @@ const StoryViewer: React.FC<StoryViewerProps> = ({ stories, initialIndex, onClos
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
 
-    if(currentIndex === stories.length - 1){
+    if (currentIndex === stories.length - 1) {
       onClose();
     }
 
     if (x < rect.width / 2) {
-      setCurrentIndex((prevIndex) => (prevIndex === 0 ? stories.length - 1 : prevIndex - 1));
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? stories.length - 1 : prevIndex - 1,
+      );
     } else {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % stories.length);
     }
@@ -51,14 +61,22 @@ const StoryViewer: React.FC<StoryViewerProps> = ({ stories, initialIndex, onClos
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full h-full bg-black z-50 flex items-center justify-center" onClick={handleClick}>
+      <div
+        className="fixed top-0 left-0 w-full h-full bg-black z-50 flex items-center justify-center"
+        onClick={handleClick}
+      >
         <div className="relative w-full h-full">
           <div className="absolute top-4 left-4 right-4 z-10 flex justify-between items-center">
             {stories.map((story, index) => (
               <div key={index} className="flex-1 mx-1 bg-gray-400 h-1">
                 <div
-                  className={`${currentIndex < index ? 'bg-gray-400' : 'bg-white'} h-full `}
-                  style={{ animation: currentIndex === index ? `progress ${story.duration}ms linear` : 'none' }}
+                  className={`${currentIndex < index ? "bg-gray-400" : "bg-white"} h-full `}
+                  style={{
+                    animation:
+                      currentIndex === index
+                        ? `progress ${story.duration}ms linear`
+                        : "none",
+                  }}
                 />
               </div>
             ))}
@@ -73,7 +91,7 @@ const StoryViewer: React.FC<StoryViewerProps> = ({ stories, initialIndex, onClos
               height={100}
               src={story.imageUrl}
               alt={`Story ${story.id}`}
-              className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-[${story.duration || fallbackDuration}ms] ${currentIndex === index ? 'opacity-100' : 'opacity-0'}`}
+              className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-[${story.duration || fallbackDuration}ms] ${currentIndex === index ? "opacity-100" : "opacity-0"}`}
             />
           ))}
         </div>

@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
-import Image from 'next/image';
+import React, { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 
-const FullScreenStoryViewer = React.lazy(() => import('./StoryViewer'));
+const FullScreenStoryViewer = React.lazy(() => import("./StoryViewer"));
 
 interface Story {
   id: number;
@@ -18,8 +18,12 @@ interface UserData {
 const StoriesList: React.FC = () => {
   const [usersData, setUsersData] = useState<UserData[]>([]);
   const [showFullScreenViewer, setShowFullScreenViewer] = useState(false);
-  const [selectedUserData, setSelectedUserData] = useState<UserData | null>(null);
-  const [lastViewedIndexes, setLastViewedIndexes] = useState<{ [key: number]: number }>({});
+  const [selectedUserData, setSelectedUserData] = useState<UserData | null>(
+    null,
+  );
+  const [lastViewedIndexes, setLastViewedIndexes] = useState<{
+    [key: number]: number;
+  }>({});
   const [showSelection, setShowSelection] = useState(false);
 
   const userCount = 6; // update this to increase user's story
@@ -34,9 +38,12 @@ const StoriesList: React.FC = () => {
 
     const fetchStories = async () => {
       try {
-        const response = await fetch(`/api/stories?users=${userCount}&duration=${duration}`, {
-          signal: abortControllerRef.current?.signal,
-        });
+        const response = await fetch(
+          `/api/stories?users=${userCount}&duration=${duration}`,
+          {
+            signal: abortControllerRef.current?.signal,
+          },
+        );
         if (!response.ok) {
           throw new Error(`Failed to fetch stories: ${response.status}`);
         }
@@ -69,12 +76,18 @@ const StoriesList: React.FC = () => {
     setSelectedUserData(userData);
     setShowFullScreenViewer(true);
     setShowSelection(true);
-    hideSelectionTimeout = setTimeout(() => setShowSelection(false), selectionDuration);
+    hideSelectionTimeout = setTimeout(
+      () => setShowSelection(false),
+      selectionDuration,
+    );
   };
 
   const handleStoryChange = (index: number) => {
     if (selectedUserData) {
-      setLastViewedIndexes({ ...lastViewedIndexes, [selectedUserData.userId]: index });
+      setLastViewedIndexes({
+        ...lastViewedIndexes,
+        [selectedUserData.userId]: index,
+      });
     }
   };
 
@@ -86,9 +99,19 @@ const StoriesList: React.FC = () => {
     <>
       <div className="flex items-center pt-10 pb-10 justify-center h-full overflow-x-auto">
         {usersData.map((userData) => (
-          <div key={userData.userId} className="relative ml-4" onClick={() => handleProfileClick(userData)}>
+          <div
+            key={userData.userId}
+            className="relative ml-4"
+            onClick={() => handleProfileClick(userData)}
+          >
             <div className="w-20 h-20 rounded-full overflow-hidden cursor-pointer relative">
-              <Image src={userData.userProfileImage} width={80} height={80} alt={`User ${userData.userId}`} className="w-full h-full object-cover" />
+              <Image
+                src={userData.userProfileImage}
+                width={80}
+                height={80}
+                alt={`User ${userData.userId}`}
+                className="w-full h-full object-cover"
+              />
             </div>
             {showSelection && selectedUserData?.userId === userData.userId && (
               <div className="absolute top-0 left-0 w-20 h-20 rounded-full border-4 border-pink-500"></div>

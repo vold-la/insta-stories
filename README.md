@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<img src="public/demo1.png" alt="Flow-builder" title="Chatbot Flow Builder" width="100%" />
+<img src="public/demo2.png" alt="Flow-builder" title="Chatbot Flow Builder" width="100%" />
 
-## Getting Started
+This is a instagram stories feature made with Typescript, NextJS and Tailwind css.
+Jest is used for testing
 
-First, run the development server:
+## Demo Link
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+[Live Demo](https://insta-stories-wine.vercel.app)
+
+## Features
+
+- List of stories visible in a smaller view in a horizontally scrollable list.
+- List is of different users having multiple / single stories
+- The user can continue watching the same story from where they have left it lastly.
+- Stories automatically advance to the next one after a set duration defined from backend in 
 ```
+/src/app/shared/components/storiesList.tsx
+```
+you can also set the number of users coming from api
+- The user can navigate between stories by click left / right
+- Optimizations like lazyloading image / component, aborting api call, having cleanup functions is there
+Note: I could have used react query (tanstack) for better caching api but it was single api so haven't done it, also image optimization is missing
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Demonstration
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+https://drive.google.com/file/d/1WLsiAnfsItzrg0qED3tJe_rIgCAXcImf/view?usp=sharing
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Dev Requirements
 
-## Learn More
+- [Next.js](https://nextjs.org/) 14 or later
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Quick Start Guide for Developers
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+`git clone [repository]`
 
-## Deploy on Vercel
+- Clone the repository
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`cd [directory]`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- CD into Directory
+
+`npm install`
+
+- Installs all dependencies
+
+`npm run dev`
+
+- Runs in dev mode.
+- Viewable in browser via localhost:3000/
+
+- Run test
+`npm run test`
+
+- Backend api is inside /src/pages/api/stories.ts
+`api/stories`
+
+---
+
+## Config and Code Structure
+
+Typescript or application code in `app/`directory.
